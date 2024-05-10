@@ -16,6 +16,7 @@ const cart = [];
 function logItemNames() {
   //TODO: use the .forEach() method to log out the name of each item
 
+//My Answer below is the same as the teachers
   items.forEach(item => {
     console.log(item.name);
   });
@@ -31,7 +32,11 @@ function findItemById(id) {
 
   //took me a long time to find this code that works,
   //it shows the whole row of categories though, not just one specific one
-  return items.find(item => item.id === id);
+  //My Answer Below: we can use 2 or 3 = signs here
+  //return items.find(item => item.id === id);
+
+  //Teachers answer below
+   return items.find(item => item.id == id);
 
 }
 
@@ -42,6 +47,7 @@ function capitalizeNames() {
   // TODO:  Use the .map() and possibly .slice() methods and return a new items array with the item names capitalized
   // DO NOT MUTATE THE ORIGINAL ARRAY IN YOU LOGIC
 
+  //My Answer Below ---------------------------------------
   // MAP is used to match things up, i don't understand how it can be used to Capitalize something??
 // I dont think we ever went over the .slice method??
 
@@ -56,10 +62,32 @@ function capitalizeNames() {
 */
 
 //Finally found this code and got it to work! Not quite sure how map is used here but I do get the gist of it.
-// itme.name.chartAt(0) = grab the first character of the word in that name category
+// item.name.chartAt(0) = grab the first character of the word in that name category
 //.toUpperCase() = just means uppercase it
 //+ item.name.slice(1) = connects that 0 character back to the rest of the word at character 1
-return items.map(item => item.name.charAt(0).toUpperCase() + item.name.slice(1));
+
+//My Answer works too
+//return items.map(item => item.name.charAt(0).toUpperCase() + item.name.slice(1));
+
+//Teachers Answer Below ----------------------------------------------
+
+//variableName.toUpperCase()
+//map
+
+return items.map(item=>{
+  let name = item.name //apple
+  //to pull letter out from string
+  //option 1 = use charAt
+  //option 2 = use bracket notation
+
+  // let firstLetter = name.charAt(0)
+  let firstLetter = name [0]
+  let capitalizedLetter = firstLetter.toUpperCase()
+  let modifiedWord = capitalizedLetter+name.slice(1)
+  return modifiedWord
+//slice(start, end)
+})
+
 
 
 }
@@ -71,7 +99,11 @@ return items.map(item => item.name.charAt(0).toUpperCase() + item.name.slice(1))
 function calculateTotalInventory() {
   // TODO Use the .reduce() method to return the total number of items in inventory
 
+  //My Answer Below
   return items.reduce((total, item) => total + item.inventory, 0);
+
+  //Teachers Answer
+  //return items.reduce((sum, item)=>{sum+item["inventory"]},0)
 
 }
 
@@ -80,9 +112,11 @@ function calculateTotalInventory() {
  */
 function calculateAllInventoryPrice() {
   // TODO Use the .reduce() method to return the total price of all the items in inventory
-
+//my answer below
   return items.reduce((total, item) => total + (item.price * item.inventory), 0);
 
+  //Teachers Answer
+  // return items.reduce((sum, item)=>{sum+item["inventory"]*item["price"]},0)
 
 }
 
@@ -94,8 +128,12 @@ function getItemPriceByName(name) {
   // TODO: Use your knowledge of objects and arrays to get the price of the item passed in
 
   //it shows the whole row of categories though, not just one specific one
+  //My answer below
   return items.find(item => items.price === items.price);
 
+  //teachers answer
+  //let foundItem = items.find(item=>items.name==name)
+  //return foundItem.price
 
 }
 
@@ -107,7 +145,11 @@ function filterItemsByCategoryId(categoryId) {
   // TODO: use the .filter() method to filter out all items which don't belong the passed in category
 
   //Still need review of this I am 60/40 in getting it
+  //My Answer
   return items.filter(item => item.categoryId === categoryId);
+
+  //Teachers Answer
+  //return items.filter(item=>item.categoryId==categoryID)
 
 }
 
@@ -118,6 +160,22 @@ function logCartItems() {
   I did find some complicated looking answers on stack overflow, but I am so far from understanding
   that i didn't want to use something I dont know how it works
 */
+
+//Teachers Answer
+
+//for each loop
+cart.forEach((itemId)=>{
+  //we need to get the item object using the id
+  //we can then console log the item name
+  let item= findItemById(itemId)
+  //console.log(item)
+  console.log(item.name)
+})
+
+
+
+
+
 }
 
 /**
@@ -132,6 +190,24 @@ function calculateTotalCartPrice() {
   that i didn't want to use something I dont know how it works
 
 */
+
+//Teachers Answer
+
+//how to get array of objects for all the items in the cart?
+// we can reuse logCartItems logic and save objects in an array
+
+let cartItems = []
+cart.forEach((itemId)=>{
+  //we need to get the item object using the id
+  //we can then console log the item name
+  let item= findItemById(itemId)
+  //console.log(item.name)
+  cartItems.push(item)
+})
+// console.log(cartItems) ----you can console log to find if your array is empty or not
+  return cartItems.reduce((sum, item)=>{
+    return sum+item["price"]},0)
+// if you use { } you must use return... if no { } you don't need to have return
 
 }
 
